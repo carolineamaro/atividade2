@@ -24,7 +24,7 @@ public class LambdaFunctionHandler implements RequestHandler<S3Event, String> {
 	private AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
 	private DynamoDB dynamoDB = new DynamoDB(client);
 
-	private static String tableName = "MyImages";
+	private static String tableName = "imagens";
 
 	public LambdaFunctionHandler() {
 	    }
@@ -68,12 +68,12 @@ public class LambdaFunctionHandler implements RequestHandler<S3Event, String> {
 
 	}
 
-	private void createDynamoItem(int studentId, int grade) {
+	private void createDynamoItem(int id, int media) {
 
 		Table table = dynamoDB.getTable(tableName);
 		try {
 
-			Item item = new Item().withPrimaryKey("ImageID", studentId).withInt("Grade", grade);
+			Item item = new Item().withPrimaryKey("imagemID", id).withInt("Media", media);
 			table.putItem(item);
 
 		} catch (Exception e) {
